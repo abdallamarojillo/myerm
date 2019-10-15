@@ -14,6 +14,10 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+     public function __construct()
+     {
+         $this->middleware('auth:api');
+     }
     public function index()
     {
         //display list of users by the most recent
@@ -30,7 +34,7 @@ class UserController extends Controller
     {
           //validate data before saving
           $request->validate([
-          'name' => 'string|required|unique:users|max:255',
+          'name' => 'string|required|max:255',
           'email' => 'string|email|unique:users|max:255',
           'password' => 'string|required|min:6'
         ]);
@@ -63,6 +67,16 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $user = User::findOrFail($id);
+
+        //validate data before saving
+        $this->validate($request,[
+        'name' => 'string|required',
+        'email'  =>  'required|email|unique:users,email,'.$user->id,
+        'password' => 'string|sometimes|min:6',
+      ]);
+
+        $user->update($request->all());
     }
 
     /**

@@ -63,6 +63,28 @@ window.Toast = Toast;
 
 window.Fire = new Vue();
 
+//moment js Date
+import moment from 'moment';
+//filtering
+Vue.filter('UserFriendlyDate',function(dateGiven){
+  return moment(dateGiven).format("MMMM Do YYYY");
+});
+
+//passport
+Vue.component(
+    'passport-clients',
+    require('./components/passport/Clients.vue').default
+);
+
+Vue.component(
+    'passport-authorized-clients',
+    require('./components/passport/AuthorizedClients.vue').default
+);
+
+Vue.component(
+    'passport-personal-access-tokens',
+    require('./components/passport/PersonalAccessTokens.vue').default
+);
 // Define some routes
 // Each route should map to a component. The "component" can
 // either be an actual component constructor created via

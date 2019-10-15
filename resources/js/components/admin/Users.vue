@@ -6,7 +6,6 @@
               <div class="card">
                 <div class="card-header">
                   <h3 class="card-title">Users</h3>
-
                   <div class="card-tools">
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add-user-modal">
@@ -32,15 +31,16 @@
                         <td>{{user.id}}</td>
                         <td>{{user.name}}</td>
                         <td>{{user.email}}</td>
-                        <td>{{user.created_at}}</td>
+                        <td>{{user.created_at | UserFriendlyDate}}</td>
                         <td>
-                          <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#edit-user-modal">
+                          <button type="button" class="btn btn-warning" @click="OpenEditUserModal(user)" data-toggle="modal" data-target="#edit-user-modal">
                             <i class="fa fa-edit"></i>
                           </button>
                        </td>
                        <td>
                          <button type="button" class="btn btn-danger" @click="DeleteUser(user.id)" >
                            <i class="fa fa-trash"></i>
+
                          </button>
                       </td>
                       </tr>
@@ -58,7 +58,7 @@
           <div class="modal fade" id="add-user-modal" tabindex="-1" role="dialog" aria-labelledby="add-user-modal" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable" role="document">
               <div class="modal-content">
-                <form @submit.prevent="CreateUser" id="CreateUserForm">
+                <form @submit.prevent="CreateUser">
                 <div class="modal-header">
                   <h5 class="modal-title" id="add-user-modal">Add Users</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -99,7 +99,7 @@
           <div class="modal fade" id="edit-user-modal" tabindex="-1" role="dialog" aria-labelledby="edit-user-modal" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable" role="document">
               <div class="modal-content">
-                <form @submit.prevent="EditUser">
+                <form @submit.prevent="EditUser()">
                 <div class="modal-header">
                   <h5 class="modal-title" id="edit-user-modal">Edit User</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -145,6 +145,7 @@
         return {
           users: {},
           form: new Form({
+            id:'',
             name: '',
             email: '',
             password: '',
@@ -167,7 +168,8 @@
               this.$Progress.finish()
               $('#add-user-modal').modal('hide');
               Fire.$emit('AfterCreateUsers');
-              $("#CreateUserForm").trigger("reset");
+              this.form.reset();
+
             },
             (response) => {
               this.$Progress.fail()
@@ -180,9 +182,14 @@
 
 
         },
+        OpenEditUserModal(user){
+          this.form.reset();
+          this.form.fill(user);
+        },
+
         EditUser(){
           this.$Progress.start()
-            this.form.post('api/user')
+            this.form.put('api/user/'+this.form.id)
             .then((response) => {
               Toast.fire({
                 type: 'success',
@@ -199,8 +206,6 @@
                   title: 'Failed. Please check the errors and try again'
                 })
             });
-
-
 
         },
         DeleteUser(id){
