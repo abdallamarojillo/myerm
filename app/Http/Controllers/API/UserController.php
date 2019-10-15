@@ -52,6 +52,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+     //this function displays the user's profile
+    public function profile()
+    {
+      return auth('api')->user();
+    }
     public function show($id)
     {
         //
