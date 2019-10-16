@@ -60968,7 +60968,11 @@ var staticRenderFns = [
     return _c("div", { staticClass: "text-center" }, [
       _c("img", {
         staticClass: "profile-user-img img-fluid img-circle",
-        attrs: { src: "/img/avatar.png", alt: "User profile picture" }
+        attrs: {
+          id: "user-image",
+          src: "/img/avatar.png",
+          alt: "User profile picture"
+        }
       })
     ])
   },

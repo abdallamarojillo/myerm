@@ -23,6 +23,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        //this is a fix for the character violation
+        \Illuminate\Support\Facades\Schema::defaultStringLength(191);
     }
 }
