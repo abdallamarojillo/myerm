@@ -21,6 +21,8 @@
                         <th>ID</th>
                         <th>Username</th>
                         <th>Email</th>
+                        <th>Access Level</th>
+                        <th>Designation</th>
                         <th>Date Registered</th>
                         <th>Edit</th>
                         <th>Delete</th>
@@ -31,6 +33,8 @@
                         <td>{{user.id}}</td>
                         <td>{{user.name}}</td>
                         <td>{{user.email}}</td>
+                        <td>{{user.access_level}}</td>
+                        <td>{{user.designation}}</td>
                         <td>{{user.created_at | UserFriendlyDate}}</td>
                         <td>
                           <button type="button" class="btn btn-warning" @click="OpenEditUserModal(user)" data-toggle="modal" data-target="#edit-user-modal">
@@ -120,11 +124,21 @@
                        <has-error :form="form" field="email"></has-error>
                     </div>
                     <div class="form-group">
-                      <label for="password">Password</label>
-                      <input v-model="form.password" type="password" class="form-control" :class="{'is-invalid':form.errors.has('password')}"
-                        id="password" placeholder="Password">
-                        <has-error :form="form" field="password"></has-error>
+                      <label for="designation">Designation</label>
+                      <input v-model="form.designation" type="text" class="form-control" :class="{ 'is-invalid':form.errors.has('designation')}"
+                       id="designation" aria-describedby="designation" placeholder="Enter designation">
+                       <has-error :form="form" field="designation"></has-error>
                     </div>
+                    <div class="form-group">
+                      <label for="access_level">Access Level</label>
+                      <select v-model="form.access_level" class="form-control" :class="{ 'is-invalid': form.errors.has('access_level')}"
+                        id="access_level">
+                        <option value="admin">Admin</option>
+                        <option value="superuser">Superuser</option>
+                        <option value="standard">Standard</option>
+                      </select>
+                    </div>
+
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -149,6 +163,8 @@
             name: '',
             email: '',
             password: '',
+            designation:'',
+            access_level:'',
             remember: false
           })
         }

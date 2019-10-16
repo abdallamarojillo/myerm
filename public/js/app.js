@@ -2089,6 +2089,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2097,6 +2100,8 @@ __webpack_require__.r(__webpack_exports__);
         name: '',
         email: '',
         password: '',
+        designation: '',
+        access_level: '',
         remember: false
       })
     };
@@ -2277,6 +2282,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2286,6 +2305,8 @@ __webpack_require__.r(__webpack_exports__);
         name: '',
         email: '',
         password: '',
+        designation: '',
+        access_level: '',
         remember: false
       })
     };
@@ -60861,7 +60882,11 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("p", { staticClass: "text-muted text-center" }, [
-              _vm._v("Risk Officer")
+              _vm._v(_vm._s(_vm.form.designation) + "\n                      "),
+              _c("br"),
+              _c("small", { staticClass: "text-muted text-center" }, [
+                _vm._v(_vm._s(_vm.form.access_level))
+              ])
             ]),
             _vm._v(" "),
             _vm._m(1),
@@ -61259,6 +61284,10 @@ var render = function() {
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(user.email))]),
                       _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(user.access_level))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(user.designation))]),
+                      _vm._v(" "),
                       _c("td", [
                         _vm._v(
                           _vm._s(_vm._f("UserFriendlyDate")(user.created_at))
@@ -61633,8 +61662,8 @@ var render = function() {
                       "div",
                       { staticClass: "form-group" },
                       [
-                        _c("label", { attrs: { for: "password" } }, [
-                          _vm._v("Password")
+                        _c("label", { attrs: { for: "designation" } }, [
+                          _vm._v("Designation")
                         ]),
                         _vm._v(" "),
                         _c("input", {
@@ -61642,20 +61671,21 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.form.password,
-                              expression: "form.password"
+                              value: _vm.form.designation,
+                              expression: "form.designation"
                             }
                           ],
                           staticClass: "form-control",
                           class: {
-                            "is-invalid": _vm.form.errors.has("password")
+                            "is-invalid": _vm.form.errors.has("designation")
                           },
                           attrs: {
-                            type: "password",
-                            id: "password",
-                            placeholder: "Password"
+                            type: "text",
+                            id: "designation",
+                            "aria-describedby": "designation",
+                            placeholder: "Enter designation"
                           },
-                          domProps: { value: _vm.form.password },
+                          domProps: { value: _vm.form.designation },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
@@ -61663,7 +61693,7 @@ var render = function() {
                               }
                               _vm.$set(
                                 _vm.form,
-                                "password",
+                                "designation",
                                 $event.target.value
                               )
                             }
@@ -61671,11 +61701,68 @@ var render = function() {
                         }),
                         _vm._v(" "),
                         _c("has-error", {
-                          attrs: { form: _vm.form, field: "password" }
+                          attrs: { form: _vm.form, field: "designation" }
                         })
                       ],
                       1
-                    )
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", { attrs: { for: "access_level" } }, [
+                        _vm._v("Access Level")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.access_level,
+                              expression: "form.access_level"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: {
+                            "is-invalid": _vm.form.errors.has("access_level")
+                          },
+                          attrs: { id: "access_level" },
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.form,
+                                "access_level",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            }
+                          }
+                        },
+                        [
+                          _c("option", { attrs: { value: "admin" } }, [
+                            _vm._v("Admin")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "superuser" } }, [
+                            _vm._v("Superuser")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "standard" } }, [
+                            _vm._v("Standard")
+                          ])
+                        ]
+                      )
+                    ])
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "modal-footer" }, [
@@ -61744,6 +61831,10 @@ var staticRenderFns = [
         _c("th", [_vm._v("Username")]),
         _vm._v(" "),
         _c("th", [_vm._v("Email")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Access Level")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Designation")]),
         _vm._v(" "),
         _c("th", [_vm._v("Date Registered")]),
         _vm._v(" "),

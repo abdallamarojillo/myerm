@@ -14,7 +14,10 @@
 
                           <h3 class="profile-username text-center">{{ form.name }}</h3>
 
-                          <p class="text-muted text-center">Risk Officer</p>
+                          <p class="text-muted text-center">{{ form.designation}}
+                          <br/><small class="text-muted text-center">{{ form.access_level}}</small>
+                         </p>
+
 
                           <ul class="list-group list-group-unbordered mb-3">
                             <li class="list-group-item">
@@ -181,6 +184,8 @@
             name: '',
             email: '',
             password: '',
+            designation:'',
+            access_level:'',
             remember: false
           })
         }

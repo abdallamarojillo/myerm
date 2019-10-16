@@ -184,6 +184,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
           </li>
           <li class="nav-item has-treeview">
+            @can('isAdmin')
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
@@ -191,6 +192,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
+            @endcan
             <ul class="nav nav-treeview pl-4">
               <li class="nav-item">
                 <router-link to="/users" class="nav-link">
